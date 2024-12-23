@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+// CSS modeles allows you to import an object with all CSS styles(to scop them)
 import styles from './CourseInput.module.css';
 import Button from "../../UI/Button/Button";
 // import "./CourseInput.css";
@@ -59,7 +60,7 @@ const CourseInput = (props) => {
   // the solution is to apply different css classes for all of the cases
   return (
     <form onSubmit={formSubmitHandler}>
-      {/*passing props to a styled component */}
+      {/*special CSS modeles syntax */}
       <div className={`${styles['form-control']} ${!isValid && styles.invalid}`}>
         <label>Course Goal</label>
         <input type="text" onChange={goalInputChangeHandler} />
