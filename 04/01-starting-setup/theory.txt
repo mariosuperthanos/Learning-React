@@ -1,0 +1,5 @@
+Let's recap!
+
+The Container generates a CSS container and adds data to it using map
+
+It wraps each Content component(every element from map iteration) with Card, which only adds a CSS class to it.
