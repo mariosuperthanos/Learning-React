@@ -1,0 +1,3 @@
+I make 2 folders:
+  - UI folder with reuseble building blocks(buttons, div wrapper(Card), errorModel)
+  - Users folder with the main components( print users, add user)
