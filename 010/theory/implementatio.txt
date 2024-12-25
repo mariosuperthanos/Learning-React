@@ -1,0 +1,14 @@
+use <Fragment> for not doing a 'div soup'(useless divs)
+
+use document.createPortal(JSX, location) to inject HTML in a different place
+Use cases: backdrop and overlay that has to be on the top level
+
+useRef is used for direct access to the input fields (nameInputRef and ageInputRef), enabling quick value retrieval and reset. It prevent the unnecesary rerenders that come with using state-based input, a keystroke triggering a rerender. 
+
+Syntax:
+  const var = useRef() - declaring the Ref
+  input -> ref = var; - associating the Ref with an Input
+  const valueOfVar = var.current.value; - accessing the Value
+
+To implement the reset functionality I cheated, accesing the DOM value directly:    
+  nameInputRef.current.value = '';
