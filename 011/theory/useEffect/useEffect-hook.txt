@@ -1,0 +1,32 @@
+In React, a side effect refers to any operation or action that occurs outside the scope of the component's rendering process, such as:
+  - Fetching data from an API.
+  - Updating the DOM directly.
+  - Setting up event listeners.
+  - Modifying browser history or localStorage.
+  - Timers or intervals (e.g., setTimeout, setInterval).
+  - Subscribing to external events.
+
+
+useEffect explained:
+  rule: you add as dependencies what you use in the side effect function
+  useEffect(() => {
+    const idenetifier = setTimeout(() => {
+      console.log('Checking form validity!');
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500) it's async
+
+    Cleanup function:
+  On the first render:
+    First render: useEffect runs and returns a cleanup function, which is saved by React but not executed yet.
+  On rerender (when dependencies change):
+    The cleanup function is executed first to clean up the previous effect (e.g., clearTimeout(identifier)).
+    React then applies the new effect.
+    The cleanup function is returned again, but it is not called until the next time useEffect runs or the component is unmounted.
+  The cleanup function is always executed before applying the new effect and runs every time the dependencies change.
+    return () => {
+      console.log('CLEANUP');
+      clearTimeout(idenetifier); It cancel a specific(identifier) callback function attached to a setTimeout
+    }
+  }, [enteredEmail, enteredPassword])

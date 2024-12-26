@@ -1,0 +1,2 @@
+dispatchFn usually contains an object(e.g.{ type: 'INPUT_USER', value: 3 })
+reducerFn function return the state that will be updated
