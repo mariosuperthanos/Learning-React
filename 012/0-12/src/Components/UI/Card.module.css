@@ -1,0 +1,66 @@
+.card {
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
+  background-color: white;
+  font-size: 1.25rem;
+  text-align: center;
+  margin: 1rem auto; /* Center on the horizontal axis */
+  width: auto; /* Dacă vrei să-l faci mai adaptabil */
+  height: auto;
+  max-width: 1200px; /* Lățimea maximă */
+}
+
+.card p:nth-of-type(1) {
+  text-align: left; /* Aliniază textul la stânga */
+  margin: 0; /* Poți elimina marginile implicite, dacă preferi */
+}
+
+.card h1 {
+  text-align: left; /* Aliniază textul la stânga */
+  margin: 0; /* Poți elimina marginile implicite, dacă preferi */
+}
+
+.card p:nth-of-type(2) {
+  text-align: left; /* Aliniază textul la stânga */
+  margin: 0; /* Poți elimina marginile implicite, dacă preferi */
+  font-size: 1.5rem;
+}
+
+.modal {
+  position: fixed; /* Fixează modalul pe ecran */
+  top: 50%; /* Aliniază pe verticală */
+  left: 50%; /* Aliniază pe orizontală */
+  transform: translate(-50%, -50%); /* Centrare precisă */
+  background-color: white; /* Fundal alb */
+  padding: 20px; /* Spațiu interior */
+  border-radius: 8px; /* Colțuri rotunjite */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Umbra modalului */
+  z-index: 1000; /* Îl aduce deasupra altor elemente */
+  width: 300px; /* Lățime fixă (poți schimba după necesitate) */
+  text-align: center; /* Aliniere text */
+  min-width: 40rem;
+}
+
+
+
+
+.modal-product {
+  display: flex;
+  flex-direction: column; /* Aranjează <h1> și <p> pe verticală */
+  align-items: flex-start;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 20rem;
+}
+
+.modal-product h1 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: -5px; /* Spațiu între <h1> și cele două <p> */
+}

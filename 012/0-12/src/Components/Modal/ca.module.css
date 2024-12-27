@@ -1,0 +1,31 @@
+.details {
+  display: flex;
+}
+
+.details p:nth-of-type(1) {
+  color: #790a0a;
+  font-weight: bold;
+  margin-right: 10px; /* Adaugă spațiu între cele două <p> */
+}
+
+.details p:nth-of-type(2) {
+  color: #363636;
+  font-weight: bold;
+  margin-right: 10px; /* Adaugă spațiu între cele două <p> */
+  border: 2px solid #b9b9b9; /* Border gri în jurul textului */
+  padding: 8px 15px; /* Ajustează padding-ul pentru a face boxul mai lung și mai mic pe lățime */
+  background-color: #ffffff; /* Fundal alb pentru text */
+  border-radius: 5px; /* Colțuri rotunjite pentru border */
+  max-height: 30px; /* Ajustează înălțimea pentru a fi mai lung */
+  width: auto; /* Permite boxului să se ajusteze la lățimea textului */
+  display: flex; /* Folosește flexbox pentru a alinia textul */
+  align-items: center; /* Centrează textul pe verticală */
+  justify-content: center; /* Centrează textul pe orizontală */
+}
+
+.align-right {
+  margin-left: auto; /* Muta div-ul în dreapta părintelui */
+  margin-top: -65px; /* Muta div-ul mai sus */
+}
+
+
