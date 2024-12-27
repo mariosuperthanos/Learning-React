@@ -1,0 +1,14 @@
+React compares the last state of the components with the current one, and makes changes to the Virtual DOM based in the comparision - reconciliation
+
+The unnecesary rerenders are still a problem because they use CPU memory
+
+React.memo(Component) stop unnecesary rerenders(props didn't change)
+React.memo compare: props.value === props.previous.value ( primitive values)
+for primitive values it works, but not for reference ones(functions, arrays and objects)
+
+
+React.memo - primitive data types
+useCallback - functions(reference data types)
+useMemo - arrays and objects((reference data types))
+
+The first time a component is rendered, React create a state for it so if useState is being called another time, React will not recreate it to the default value
