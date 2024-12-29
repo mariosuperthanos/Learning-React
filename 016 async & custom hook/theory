@@ -1,0 +1,7 @@
+use custom hook pattern:
+  I make a custom hook that manage HTTPs requests(including when it's shown an error or a 'It's loading' text). It return:
+    - the states(isLoading, error), so it will trigger a rerender inside the component
+    - the async function with 2 params: requestConfig(url, method(POST/GET...), ?body) and a function that sends the response data to the component and modify it.
+  Firebase(Google's DB) specific: the function that modify the data from response is transformed using .bind method like: createTask.bind(null, taskText));. createTask needs 2 arguments: (taskTest, taskData).
+Using the .bind method, it will specify that the first argument will be taskTest(that is available) and the 2nd one will be passed inside the function from custom hook. 
+That 2nd argument is an ID that Firebase aka Google's DB will send to me after the POST request.
