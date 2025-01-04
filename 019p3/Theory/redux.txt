@@ -1,0 +1,45 @@
+
+Redux: State Management Library
+
+- Store Initialization  
+  Redux encourages using a single store for your web application. You can initialize it as follows:  
+
+  configureStore({ reducer });
+
+- Accessing Data  
+  To ensure that components always get the latest data from the store:  
+  - Subscribe the component to the store using React's `useSelector` hook:  
+
+    useSelector(state => state.specificData);
+
+  - This behaves similarly to managing local state in React.
+
+- Modifying Data  
+  - Use reducers to define how the store’s state changes.  
+  - Trigger these reducers in a component with the `useDispatch` hook:  
+
+    const dispatch = useDispatch();
+    dispatch(action);
+
+
+- Redux Toolkit  
+  Redux Toolkit simplifies state management by streamlining the creation and management of reducers,
+  making it easier and more efficient to work with Redux.
+
+
+  - I created a slice of the main store to manage the counter and showCounter states. The slice requires three properties: name, initialState, and reducers. The reducers property is an object containing one or more reducer functions, each with state and action as parameters.
+
+  - Inside the reducer property, I added a key named counter that references the reducer from counterSlice:
+
+ const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer
+  }
+});
+
+  - This name is also used to acces this specific slice data from store:
+
+  const showCounter = useSelector(state => state.counter.showCounter);
+
+  To dispatch actions, I exported counterActions from counterSlice.actions. In the component, I called the reducer with dispatch(counterActions.increase(10)). Internally, the action object looks like this: { type: UNIQUE_ID, payload: 10 }. In the reducer function, I accessed the payload property to modify the state:
+  state.counter = state.counter + action.payload.
