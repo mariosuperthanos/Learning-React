@@ -199,3 +199,35 @@ This can be done by adding the built-in `Head` component
   />
 </Head>
 ```
+
+### Middlewere
+In Next.js, define Middleware in a single middleware.ts (or .js) file located at the root of your project, alongside pages or app, or inside src.
+
+You can modularize your middleware logic by breaking it into separate files and importing them into middleware.ts. This simplifies configuration, avoids conflicts, and optimizes performance by preventing multiple middleware layers.
+
+### Exemple:
+``` js
+
+import { NextResponse } from 'next/server';
+
+// Global config for all routes
+export const config = {
+  matcher: ['/*'], // Apply middleware to all routes
+};
+
+// Middleware 1 - For all routes
+export function firstMiddleware(req) {
+  console.log('First middleware for all routes');
+  return NextResponse.next();
+}
+
+// Middleware 2 - For routes that start with /admin
+export function secondMiddleware(req) {
+  if (req.nextUrl.pathname.startsWith('/admin')) {
+    console.log('Middleware for the /admin route');
+    return NextResponse.next();
+  }
+  return NextResponse.next();
+}
+
+```
