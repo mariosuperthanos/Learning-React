@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "allowJs": true, // Permite JavaScript în proiect
+    "checkJs": false, // Nu validează JavaScript
+    "noEmit": true, // Nu generează fișiere .js la compilare
+    "skipLibCheck": true, // Oprește verificarea tipurilor în librării
+    "strict": false // Dezactivează toate regulile stricte
+    ,
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
+  },
+  "include": [
+    "./**/*",
+    ".next/types/**/*.ts"
+  ], // Include toate fișierele din proiect
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ] // Exclude librării și teste
+}
