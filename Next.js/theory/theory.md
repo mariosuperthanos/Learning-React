@@ -137,11 +137,11 @@ export async function getStaticProps(context) {
 
 In order to solve this problem, I added `getStaticPaths()` where I specified 2 things:
   - `paths` property, it specifies what paths will be pre-generated
-  - `fallback` boolena property, decides if the user access a unspecified dynamic route, it will show a `404` error or it should generate it dynamically.
+  - `fallback` boolean property, decides if the user access a unspecified dynamic route, it will show a `404` error or it should generate it dynamically.
   ```js
   export async function getStaticPaths() {
     return {
-      fallback: true,
+      fallback: 'blocking',
       paths: [
         {
           params: {
@@ -157,3 +157,45 @@ In order to solve this problem, I added `getStaticPaths()` where I specified 2 t
     };
   }
   ```
+
+### API routes
+I created a folder `app/api` where I stored subfolders with path's name that contain `route.js` file. This allows me to have function names that correspons with the HTTP method(GET, POST, etc.). The response was send with `return NextResponse.json({ data },{ status })`.
+I access the body by using `req.json()`
+
+```js
+export async function POST(req) {
+  const data = await req.json();
+  
+  // const { title, image, address, description } = data;
+
+  const client = await MongoClient.connect('mongodb+srv://david1bargianu:IZSNk4qSavwqaCKE@cluster0.a6hho.mongodb.net/meetups?retryWrites=true&w=majority');
+  
+  const db = client.db();
+
+  const meetupsCollection = db.collection('meetups');
+
+  const result = await meetupsCollection.insertOne({data});
+
+  client.close();
+
+  return NextResponse.json(
+    { data: result},
+    { status: 200 }
+  );
+}
+```
+
+### API routes vs pre-rendering
+The code that retrieves data from the database for pre-rendering should be placed inside getStaticProps() for better performance, rather than using an API route. Next.js won't show the credentials, so it's safe.
+
+### Metadata: title & description
+This can be done by adding the built-in `Head` component
+``` js
+<Head>
+  <title>React Meetups</title>
+  <meta
+    name="description"
+    content="Browse a huge list of highly active React meetups!"
+  />
+</Head>
+```
