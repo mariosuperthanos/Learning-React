@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "allowJs": true,                 // Permite utilizarea fișierelor `.js`.
+    "noEmit": true,                  // Nu generează fișiere compilate.
+    "checkJs": false,                // Nu verifică erorile în fișierele `.js`.
+    "skipLibCheck": true,            // Sare peste verificările fișierelor de tip.
+    "strict": false,                 // Dezactivează toate verificările stricte.
+    "noImplicitAny": false           // Permite tipul `any` implicit.
+  },
+  "include": ["**/*.js"]             // Include doar fișierele `.js` din proiect.
+}
