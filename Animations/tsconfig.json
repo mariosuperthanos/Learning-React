@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "allowJs": true,            // Allows JavaScript files
+    "checkJs": false,           // Disables type-checking for JavaScript files
+    "noEmit": true,             // Prevents emitting compiled files
+    "skipLibCheck": true,       // Skips type-checking of declaration files
+    "strict": false             // Disables strict type-checking
+  },
+  "include": ["**/*.js"],       // Includes only JavaScript files
+  "exclude": ["node_modules"]   // Excludes node_modules from processing
+}
