@@ -1,0 +1,151 @@
+import axios from "axios";
+
+// export async function POST(req: Request) {
+//   try {
+//     const { email, password } = await req.json();
+//     const csrfResponse = await fetch("http://localhost:3000/api/auth/csrf");
+//     const { csrfToken } = await csrfResponse.json();
+
+//     // 2. Facem request-ul de sign in cu CSRF token
+//     const signInResponse = await fetch(
+//       "http://localhost:3000/api/auth/callback/credentials",
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/x-www-form-urlencoded",
+//         },
+//         body: new URLSearchParams({
+//           csrfToken,
+//           email,
+//           password,
+//           json: true, // Important pentru a primi JSON înapoi
+//           redirect: false, // Important pentru a preveni redirect-ul
+//         }),
+//       }
+//     );
+//     // 3. Obține cookie-urile din răspuns
+//     const setCookieHeader = signInResponse.headers.get('set-cookie')
+//     const authData = await signInResponse.json()
+
+//     // 4. Creează răspunsul cu NextResponse
+//     const response = NextResponse.json(authData)
+
+//     // 5. Adaugă cookie-urile în răspuns
+//     if (setCookieHeader) {
+//       // Parseaza cookie-urile și setează-le individual
+//       setCookieHeader.split(',').forEach(cookie => {
+//         response.headers.append('Set-Cookie', cookie.trim())
+//       })
+//     }
+
+//     return response
+//     // const { email, password } = await req.json();
+
+//     // const result = await fetch(
+//     //   `${process.env.NEXTAUTH_URL}/api/auth/callback/credentials`,
+//     //   {
+//     //     method: "POST",
+//     //     headers: { "Content-Type": "application/json" },
+//     //     body: JSON.stringify({
+//     //       email,
+//     //       password,
+//     //       redirect: false,
+//     //       json: true,
+//     //     }),
+//     //   }
+//     // )
+//     // // console.log(result);
+
+//     // if (!result || result.error) {
+//     //   return NextResponse.json(
+//     //     { error: result?.error || "Invalid credentials" },
+//     //     { status: 401 }
+//     //   );
+//     // }
+
+//     // return NextResponse.json({ message: "Login successful" });
+//   } catch (err) {
+//     return NextResponse.json(
+//       { error: "Internal Server Error" },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+// app/api/login/route.js
+
+import { NextResponse } from "next/server";
+import { authOptions } from "../auth/[...nextauth]/route";
+
+async function testCredentialsSignIn() {
+  const baseUrl = "http://localhost:3000"; // The base URL of your local development server
+
+  try {
+    // Step 1: Get the CSRF Token
+    const csrfResponse = await fetch(`${baseUrl}/api/auth/csrf`);
+    if (!csrfResponse.ok) {
+      throw new Error("Failed to fetch CSRF token");
+    }
+    const csrfData = await csrfResponse.json();
+    const csrfToken = csrfData.csrfToken;
+
+    console.log("CSRF Token:", csrfToken);
+
+    // Step 2: Extract cookies from the CSRF response
+    const csrfCookies = csrfResponse.headers.get("set-cookie");
+    console.log("Initial Cookies:", csrfCookies);
+
+    // Step 3: Send a POST request to /api/auth/callback/test with CSRF token and cookies
+    const signInResponse = await fetch(
+      `${baseUrl}/api/auth/callback/credentials`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: csrfCookies, // Use the cookies from the CSRF response
+        },
+        body: JSON.stringify({
+          csrfToken: csrfToken,
+          email: "gasds@gag.com",
+          password: "ggsdgdsgsgsdgs",
+          json: "true",
+        }),
+      }
+    );
+
+    if (!signInResponse.ok) {
+      throw new Error("Failed to sign in");
+    }
+
+    // Check the status and response headers
+    console.log("Response status:", signInResponse.status);
+    const signInCookies = signInResponse.headers.get("set-cookie");
+    console.log("Sign-In Cookies:", signInCookies);
+
+    // Step 4: Combine cookies from CSRF and sign-in responses
+    const combinedCookies = `${csrfCookies}; ${signInCookies}`; // Combine cookies from both responses
+
+    // Step 5: Fetch the session information after logging in
+    const sessionResponse = await fetch(`${baseUrl}/api/auth/session`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: combinedCookies, // Use combined cookies
+      },
+    });
+
+    if (!sessionResponse.ok) {
+      throw new Error("Failed to fetch session");
+    }
+
+    const sessionInfo = await sessionResponse.json();
+    console.log("Session Info:", sessionInfo);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+export async function POST(request: Request) {
+  const result = await testCredentialsSignIn();
+  console.log(result);
+}
